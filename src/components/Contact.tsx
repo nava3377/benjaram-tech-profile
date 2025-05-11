@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mail, MapPin, ArrowRight } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -22,24 +23,46 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // EmailJS configuration
+      await emailjs.send(
+        'service_kesm0vn', // Service ID
+        'template_j12habk', // Template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        'Cwcvj2JPSeH1AjfVa' // Public Key
+      );
+      
       toast({
         title: "Message sent!",
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
+      
+      // Reset form after successful submission
       setFormData({
         name: '',
         email: '',
         subject: '',
         message: '',
       });
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      toast({
+        title: "Failed to send message",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
