@@ -34,17 +34,17 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // EmailJS configuration
+      // EmailJS configuration with your provided credentials
       await emailjs.send(
-        'service_kesm0vn', // Service ID
-        'template_j12habk', // Template ID
+        'service_kesm0vn', // Your Service ID
+        'template_n7i08o8', // Your Template ID
         {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
         },
-        'Cwcvj2JPSeH1AjfVa' // Public Key
+        'Cwcvj2JPSeH1AjfVa' // Your Public Key
       );
       
       toast({
