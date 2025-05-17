@@ -41,6 +41,18 @@ export const useContactForm = () => {
     setIsSubmitting(true);
     setFormError(null);
     
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setFormError('Please fill in all required fields');
+      setIsSubmitting(false);
+      toast({
+        title: "Form Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     try {
       const response = await sendEmail(formData);
       
