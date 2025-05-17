@@ -56,7 +56,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
     setFormError(null);
     
-    const serviceId = 'service_kesm0vn';
+    const serviceId = 'service_8lg2q1j'; // Updated service ID
     const templateId = 'template_n7i08o8';
     const publicKey = 'Cwcvj2JPSeH1AjfVa';
     
